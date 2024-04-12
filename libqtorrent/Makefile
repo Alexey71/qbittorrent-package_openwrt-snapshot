@@ -2,13 +2,13 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libqtorrent
 PKG_VERSION:=1.2.20
-PKG_RELEASE=2024-01-14
+PKG_RELEASE=2024-01-18
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/arvidn/libtorrent.git
-PKG_SOURCE_DATE:=2024-01-14
-PKG_SOURCE_VERSION:=359ef9045c8904ddb41eb7cb75ca6c0735a7fe0b
+PKG_SOURCE_DATE:=2024-01-18
+PKG_SOURCE_VERSION:=2316136434d6785bc8c5d1b03add005e1a3945a9
 
 PKG_MAINTAINER:=David Yang <mmyangfl@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
@@ -31,24 +31,6 @@ endef
 
 define Package/libqtorrent/description
     libtorrent is an open source C++ library implementing the BitTorrent protocol
-endef
-
-define Download/try_signal
-	VERSION:=105cce59972f925a33aa6b1c3109e4cd3caf583d
-	SUBDIR:=deps/try_signal
-	FILE:=$(PKG_NAME)-try_signal-$$(VERSION).tar.xz
-	URL:=https://github.com/arvidn/try_signal.git
-	MIRROR_HASH:=32a432e35e81c79f21c49744f00696c112e0deab45d15d91c61ceb63fe25a5f8
-	PROTO:=git
-endef
-$(eval $(call Download,try_signal))
-
-PKG_UNPACK:=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xzf $(DL_DIR)/$(PKG_SOURCE)
-
-define Build/Prepare
-	$(Build/Prepare/Default)
-	$(eval $(Download/try_signal))
-	xzcat $(DL_DIR)/$(FILE) | tar -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
 endef
 
 define Build/InstallDev
